@@ -1,0 +1,1 @@
+void readProductData(Product *products, int *numProducts);

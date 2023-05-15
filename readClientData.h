@@ -1,0 +1,1 @@
+void readClientData(Client *clients, int *numClients);

@@ -1,0 +1,1 @@
+void addNewClient(Client *clients, int *numClients);

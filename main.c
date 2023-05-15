@@ -1,4 +1,16 @@
 #include <stdio.h>
+#include "readProductData.h"
+#include "writeProductData.h"
+#include "displayStock.h"
+#include "updateStock.h"
+#include "checkStockSpace.h"
+#include "readClientData.h"
+#include "writeClientData.h"
+#include "addNewClient.h"
+#include "removeClient.h"
+#include "displayPurchaseHistory.h"
+#include "manageMode.h"
+#include "purchaseMode.h"
 
 // Définir les structures pour le produit et le client
 
@@ -13,9 +25,10 @@ typedef struct {
 typedef struct {
     char firstName[50];
     char lastName[50];
-    int purchaseHistory[3];  // Stocker les numéros de référence des produits pour l'historique des achats
+    int purchaseHistory[3];  
 } Client;
 
+// Stocker les numéros de référence des produits pour l'historique des achats
 // Fonctions pour gérer les produits
 
 void readProductData(Product *products, int *numProducts);
@@ -35,7 +48,7 @@ void displayPurchaseHistory(Client *clients, int numClients, int clientID);
 // Fonctions pour gérer les modes
 
 void managementMode(Product *products, int numProducts, Client *clients, int numClients);
-void purchaseMode(Product *products, int numProducts, Client *clients, int numClients);
+void purchaseMode(Client *clients, int numClients, Product *products, int numProducts);
 
 int main() {
     // Initialiser les tableaux de produits et de clients

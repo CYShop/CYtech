@@ -1,0 +1,1 @@
+void writeProductData(Product *products, int numProducts);
