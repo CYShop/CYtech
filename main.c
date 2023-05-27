@@ -420,23 +420,32 @@ void removeProductFromCart(Client *client) {
             }
 
             // Vérifier si la quantité spécifiée est supérieure ou égale à la quantité présente dans le panier
-            if (quantity >= client->cartQuantities[i]) {
+            if (quantity == client->cartQuantities[i]) {
                 // Supprimer complètement le produit du panier
                 for (int j = i; j < client->numItemsInCart - 1; j++) {
                     client->cart[j] = client->cart[j + 1];
                     client->cartQuantities[j] = client->cartQuantities[j + 1];
                 }
                 client->numItemsInCart--;
-            } else {
+                printf("\033[31mLe produit a été totalement supprimée du panier avec succès.\033[0m\n");
+                printf("\n===========================================\n");
+                return;
+            } 
+            else if (quantity < client->cartQuantities[i]){
                 // Réduire la quantité du produit dans le panier
                 client->cartQuantities[i] -= quantity;
+                printf("\033[31mQuantité spécifiée du produit supprimé du panier avec succès.\033[0m\n");
+                printf("\n===========================================\n");
+                return;
             }
-
-            printf("\033[31mQuantité spécifiée du produit supprimée du panier avec succès.\033[0m\n");
-            printf("\n===========================================\n");
-            return;
+            else{
+                printf("\033[31mQuantité invalide. Veuillez entrer une quantité valide.\033[0m\n");
+                return;
+            }
+            
         }
     }
+    
 
     printf("\033[31mProduit non trouvé dans le panier.\033[0m\n");
     printf("\n===========================================\n");
@@ -463,6 +472,7 @@ void checkout(Client *client, Product *products, int numProducts) {
     if (totalCost > 0) {
         if (client->balance >= totalCost) {
             client->balance -= totalCost; // Déduire le prix total de l'achat du solde du client
+            printf ("Le prix total du panier est de : %d\n", totalCost);
             printf("\033[32mAchat réussi ! Votre nouveau solde est de :\033[0m %d\n", client->balance);
             client->numPurchases++;
             client->numItemsInCart = 0; // Vider le panier après l'achat
@@ -514,7 +524,7 @@ void addNewProduct(Product *products, int *numProducts) {
     quantity = atoi(quantitystr);
     products[*numProducts].quantity = quantity;
     if (quantity <= 0) {
-        printf("\033[31mQuantité invalide. Veuillez entrer une quantité positive :\033[0m\n");
+        printf("\033[31mQuantité invalide. Veuillez entrer une quantité valide :\033[0m\n");
         goto Saisiref;
     }
 
@@ -756,7 +766,7 @@ void purchaseMode(Client *clients, int *numClients, Product *products, int *numP
     clientID = clients[*numClients - 1].id;
     writeClientData(clients, *numClients+1); // save changes to file
     }
-    else if (findClientByID(clients, *numClients, clientID) == -1) {
+    else if (findClientByID(clients, *numClients, clientID) == -1 || clientIDstr == "0") {
         printf("\033[31mID de client invalide.\033[0m\n");
         printf("\n===========================================\n");
         goto menuID;
