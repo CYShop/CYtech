@@ -1,1 +1,0 @@
-void writeClientData(Client *clients, int numClients);
