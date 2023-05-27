@@ -1,1 +1,0 @@
-void displayStock(Product *products, int numProducts);
