@@ -1,1 +1,0 @@
-void removeClient(Client *clients, int *numClients, int clientID);
