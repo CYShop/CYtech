@@ -1,1 +1,0 @@
-void displayPurchaseHistory(Client *clients, int numClients, int clientID);
